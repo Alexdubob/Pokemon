@@ -16,6 +16,7 @@ public class Main {
 
         try {
             reader = new BufferedReader(new FileReader(pokemonFile));
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] pokemonReader = line.split(splitBy);
 
@@ -31,11 +32,10 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(pokemonList);
 
-       /* for (String[] pokemon : pokemonList) {
-            System.out.println("Pokemon: " + pokemon[1]+ ", Type: " + pokemon[2] + ", HP: " + pokemon[5] +", Defense" + pokemon[7] +  ", Attack: " + pokemon[6] + ", Speed: " + pokemon[9]) ;
-        }*/
+        for(Pokemon p : pokemonList){
+            System.out.println(p);
+        }
 
 
         /*try {

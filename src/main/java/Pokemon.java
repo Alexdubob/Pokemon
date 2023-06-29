@@ -16,4 +16,15 @@ class Pokemon {
         this.speed = speed;
     }
 
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "pokemonName='" + pokemonName + '\'' +
+                ", pokemonType='" + pokemonType + '\'' +
+                ", healthPoints=" + healthPoints +
+                ", attack=" + attack +
+                ", defense=" + defense +
+                ", speed=" + speed +
+                '}';
+    }
 }
