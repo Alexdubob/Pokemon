@@ -11,7 +11,7 @@ public class Main {
         String line = "";
         String splitBy = ";";
         ArrayList<Pokemon> pokemonList = new ArrayList<>();
-        ArrayList<Pokemon> attackList = new ArrayList<>();
+        ArrayList<Attack> attackList = new ArrayList<>();
 
 
         try {
@@ -26,31 +26,37 @@ public class Main {
                 Integer pokemonDefense = Integer.parseInt(pokemonReader[6]);
                 Integer pokemonAttack = Integer.parseInt(pokemonReader[7]);
                 Integer pokemonSpeed = Integer.parseInt(pokemonReader[9]);
-                Pokemon pokemon = new Pokemon(pokemonName,pokemonType,pokemonHP,pokemonDefense,pokemonAttack,pokemonSpeed);
+                Pokemon pokemon = new Pokemon(pokemonName, pokemonType, pokemonHP, pokemonDefense, pokemonAttack, pokemonSpeed);
                 pokemonList.add(pokemon);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for(Pokemon p : pokemonList){
+       /* for (Pokemon p : pokemonList) {
             System.out.println(p);
-        }
+        }*/
 
 
-        /*try {
+        try {
             reader = new BufferedReader(new FileReader(attackFile));
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] attackReader = line.split(splitBy);
-                attackList.add(attackReader);
+                String attackName = attackReader[1];
+                String attackType = attackReader[3];
+                Integer attackPower = Integer.parseInt(attackReader[5]);
+                Attack attack = new Attack(attackName, attackType, attackPower);
+                attackList.add(attack);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for (String[] attack : attackList) {
-            System.out.println("Attack = " + attack[1] +", Type: " + attack[3] +  ", Power = " + attack[5]);
-        }*/
+       for (Attack a : attackList) {
+            System.out.println(a);
+        }
+
     }
 }
 
