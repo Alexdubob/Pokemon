@@ -14,13 +14,24 @@ class Attack {
 
    }
 
+    public String getAttackName() {
+        return attackName;
+    }
+
+    public String getAttackType() {
+        return attackType;
+    }
+
+    public Integer getAttackPower() {
+        return attackPower;
+    }
 
     @Override
     public String toString() {
         return "Attack{" +
-                "Attackname='" + attackName + '\'' +
-                ", Attacktype='" + attackType + '\'' +
-                ", Attackpower=" + attackPower +
+                "Name='" + attackName + '\'' +
+                ", Type='" + attackType + '\'' +
+                ", Power=" + attackPower +
                 '}';
     }
 

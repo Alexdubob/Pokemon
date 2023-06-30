@@ -1,7 +1,13 @@
 import java.util.Random;
 
 public class NPC {
-    Random random = new Random();
+    public int getRandomPokemon(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(151);
+        return randomNumber;
+
+    }
+
 
 
 
