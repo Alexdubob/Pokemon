@@ -15,6 +15,7 @@ public class Main {
         ArrayList<Pokemon> pokemonList = new ArrayList<>();
         ArrayList<Attack> attackList = new ArrayList<>();
 
+        //Pokemon filereader
         try {
             reader = new BufferedReader(new FileReader(pokemonFile));
             reader.readLine();
@@ -34,11 +35,9 @@ public class Main {
             e.printStackTrace();
         }
 
-       /* for (Pokemon p : pokemonList) {
-            System.out.println(p);
-        }*/
 
 
+        //Attack filereader
         try {
             reader = new BufferedReader(new FileReader(attackFile));
             reader.readLine();
@@ -55,17 +54,30 @@ public class Main {
         }
 
 
+        //print pokemonlist
+        for (Pokemon p : pokemonList) {
+            System.out.println(p);
+        }
+
+        //Random Pokemon for the NPC
         Random random = new Random();
         int opponentChoice = random.nextInt(pokemonList.size());
         Pokemon opponentPokemon = pokemonList.get(opponentChoice);
         System.out.println("NPC got the Pokemon: " + opponentPokemon);
 
+        //Random attacks for the opponents Pokemon
+        int opponentAttackChoice = random.nextInt(attackList.size());
+        Attack opponentAttack1 = attackList.get(opponentAttackChoice);
+        attackList.remove(opponentAttack1);
+        Attack opponentAttack2 = attackList.get(opponentAttackChoice);
+        System.out.println("Opponents attacks are : ");
+        System.out.println(opponentAttack1);
+        System.out.println(opponentAttack2);
+        attackList.add(opponentAttack1);
 
+        //Player picking a Pokemon
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose a Pokemon");
-        for (Pokemon p : pokemonList) {
-            System.out.println(p);
-        }
         String playerChoice = scanner.nextLine();
         Pokemon chosenPokemon = null;
         try {
@@ -82,6 +94,16 @@ public class Main {
         }
         if(chosenPokemon != null){
             System.out.println("Yor have chosen: " + chosenPokemon.getPokemonName());
+            //Players attacks
+            int playerAttackChoice = random.nextInt(attackList.size());
+            Attack playerAttack1 = attackList.get(playerAttackChoice);
+            attackList.remove(playerAttack1);
+            Attack playerAttack2 = attackList.get(playerAttackChoice);
+            attackList.add(playerAttack1);
+            System.out.println("Players attacks are: ");
+            System.out.println(playerAttack1);
+            System.out.println(playerAttack2);
+
         }
         else {
             System.out.println("Invalid choice. PLease try again.");
@@ -95,9 +117,13 @@ public class Main {
 
 
 
-      /* for (Attack a : attackList) {
-            System.out.println(a);
-        }*/
+
+
+
+
+
+
+
 
     }
 }
