@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
     private static final String pokemonFile = "src\\2023-03-13-Pokemon.csv";
@@ -12,10 +13,10 @@ public class Game {
     ArrayList<Pokemon> pokemonList = new ArrayList<>();
     ArrayList<Attack> attackList = new ArrayList<>();
 
-    //Pokemon filereader
-    public void pokemonFileReader
+    Random random = new Random();
 
-    {
+    //Pokemon filereader
+    public void pokemonFileReader{
         try {
             reader = new BufferedReader(new FileReader(pokemonFile));
             reader.readLine();
@@ -30,9 +31,7 @@ public class Game {
     }
 
     //Attack filereader
-    public void attackFileReader
-
-    {
+    public void attackFileReader{
         try {
             reader = new BufferedReader(new FileReader(attackFile));
             reader.readLine();
@@ -45,6 +44,23 @@ public class Game {
             e.printStackTrace();
         }
     }
+
+    private  Pokemon NPC() {
+        int opponentChoice = random.nextInt(pokemonList.size());
+        Pokemon npcPokemon = pokemonList.get(Integer.parseInt(String.valueOf(opponentChoice)));
+
+        int opponentAttackChoice = random.nextInt(attackList.size());
+        Attack opponentAttack1 = attackList.get(opponentAttackChoice);
+        attackList.remove(opponentAttack1);
+        Attack opponentAttack2 = attackList.get(opponentAttackChoice);
+        System.out.println("Opponents attacks are : ");
+        System.out.println(opponentAttack1);
+        System.out.println(opponentAttack2);
+        attackList.add(opponentAttack1);
+
+        return pokemonList.get(opponentChoice);
+
+
 
     public void Fight{
         while (playerPokemon.getHP() > 0 && opponentPokemon.getHP() > 0) {
