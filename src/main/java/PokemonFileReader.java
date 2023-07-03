@@ -2,23 +2,20 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class pokemonFileReader {
+public class PokemonFileReader {
+    private final String pokemonFile = "src\\2023-03-13-Pokemon.csv";
 
-    private static ArrayList<Pokemon> readPokemonFile(String filename) {
+
+    private ArrayList<Pokemon> readPokemonFile(String filename) {
         ArrayList<Pokemon> pokemonList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+        String line = "";
+        String splitBy = ";";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(pokemonFile));
             reader.readLine();
-            String line;
             while ((line = reader.readLine()) != null) {
-                String[] pokemonReader = line.split(";");
-                Integer pokemonIndex = Integer.parseInt(pokemonReader[0]);
-                String pokemonName = pokemonReader[1];
-                String pokemonType = pokemonReader[2];
-                int pokemonHP = Integer.parseInt(pokemonReader[5]);
-                int pokemonDefense = Integer.parseInt(pokemonReader[6]);
-                int pokemonAttack = Integer.parseInt(pokemonReader[7]);
-                int pokemonSpeed = Integer.parseInt(pokemonReader[9]);
-                Pokemon pokemon = new Pokemon(pokemonIndex, pokemonName, pokemonType, pokemonHP, pokemonDefense, pokemonAttack, pokemonSpeed);
+                String[] pokemonReader = line.split(splitBy);
+                Pokemon pokemon = new Pokemon(Integer.parseInt(pokemonReader[0]), pokemonReader[1], pokemonReader[2], Integer.parseInt(pokemonReader[5]), Integer.parseInt(pokemonReader[6]), Integer.parseInt(pokemonReader[7]), Integer.parseInt(pokemonReader[9]));
                 pokemonList.add(pokemon);
             }
         } catch (Exception e) {

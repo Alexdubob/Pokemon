@@ -1,4 +1,5 @@
-class Pokemon {
+public class Pokemon {
+
     private Integer pokemonIndex;
     private String pokemonName;
     private String pokemonType;

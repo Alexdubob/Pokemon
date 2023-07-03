@@ -1,4 +1,4 @@
-class Attack {
+public class Attack {
 
    private String attackName;
 

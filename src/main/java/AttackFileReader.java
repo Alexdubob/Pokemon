@@ -11,10 +11,7 @@ public class AttackFileReader {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] attackReader = line.split(";");
-                String attackName = attackReader[1];
-                String attackType = attackReader[3];
-                String attackPower = attackReader[5];
-                Attack attack = new Attack(attackName, attackType, Integer.parseInt(attackPower));
+                Attack attack = new Attack(attackReader[1], attackReader[3], Integer.parseInt(attackReader[5]));
                 attackList.add(attack);
             }
         } catch (Exception e) {
