@@ -5,10 +5,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    private static final String pokemonFile = "src\\2023-03-13-Pokemon.csv";
+    private static final String attackFile = "src\\2023-04-03-Attacks.csv";
     public static void main(String[] args) {
 
-        String pokemonFile = "src\\2023-03-13-Pokemon.csv";
-        String attackFile = "src\\2023-04-03-Attacks.csv";
+
         BufferedReader reader = null;
         String line = "";
         String splitBy = ";";
@@ -21,14 +22,14 @@ public class Main {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] pokemonReader = line.split(splitBy);
-                Integer pokemonIndex = Integer.parseInt(pokemonReader[0]);
+                String pokemonIndex = pokemonReader[0];
                 String pokemonName = pokemonReader[1];
                 String pokemonType = pokemonReader[2];
-                Integer pokemonHP = Integer.parseInt(pokemonReader[5]);
-                Integer pokemonDefense = Integer.parseInt(pokemonReader[6]);
-                Integer pokemonAttack = Integer.parseInt(pokemonReader[7]);
-                Integer pokemonSpeed = Integer.parseInt(pokemonReader[9]);
-                Pokemon pokemon = new Pokemon(pokemonIndex,pokemonName, pokemonType, pokemonHP, pokemonDefense, pokemonAttack, pokemonSpeed);
+                String pokemonHP = (pokemonReader[5]);
+                String pokemonDefense = pokemonReader[6];
+                String pokemonAttack = pokemonReader[7];
+                String pokemonSpeed = pokemonReader[9];
+                Pokemon pokemon = new Pokemon(Integer.parseInt(pokemonIndex),pokemonName, pokemonType, Integer.parseInt(pokemonHP), Integer.parseInt(pokemonDefense), Integer.parseInt(pokemonAttack), Integer.parseInt(pokemonSpeed));
                 pokemonList.add(pokemon);
             }
         } catch (Exception e) {
@@ -45,8 +46,8 @@ public class Main {
                 String[] attackReader = line.split(splitBy);
                 String attackName = attackReader[1];
                 String attackType = attackReader[3];
-                Integer attackPower = Integer.parseInt(attackReader[5]);
-                Attack attack = new Attack(attackName, attackType, attackPower);
+                String attackPower = attackReader[5];
+                Attack attack = new Attack(attackName, attackType, Integer.parseInt(attackPower));
                 attackList.add(attack);
             }
         } catch (Exception e) {
@@ -54,7 +55,7 @@ public class Main {
         }
 
 
-        //print pokemonlist
+        //Print pokemonList
         for (Pokemon p : pokemonList) {
             System.out.println(p);
         }
@@ -83,6 +84,7 @@ public class Main {
         try {
             int index = Integer.parseInt(playerChoice)-1;
             chosenPokemon = pokemonList.get(index);
+            Pokemon playerPokemon = pokemonList.get(Integer.parseInt(playerChoice));
         }
         catch (NumberFormatException e){
             for(Pokemon p : pokemonList){
@@ -93,7 +95,7 @@ public class Main {
             }
         }
         if(chosenPokemon != null){
-            System.out.println("Yor have chosen: " + chosenPokemon.getPokemonName());
+            System.out.println("Player picked: " + chosenPokemon.getPokemonName());
             //Players attacks
             int playerAttackChoice = random.nextInt(attackList.size());
             Attack playerAttack1 = attackList.get(playerAttackChoice);
@@ -112,6 +114,12 @@ public class Main {
 
 
 
+        //initialize the fight
+        //Dmg = (Attackpower) * (attackingPokemonPower / defendingPokemonDefense)
+        boolean playerTurn;
+       /* if (opponentPokemon.getSpeed() < playerPokemon.getSpeed()){
+            playerTurn = true;
+        }*/
 
 
 
