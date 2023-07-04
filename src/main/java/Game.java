@@ -23,14 +23,19 @@ public class Game {
 
         System.out.println("Choose a Pokemon From the Pokedex");
 
-
+        //Playerpokemon
         int userChoice = scanner.nextInt();
         PokedexEntry selecetedPokedexEntry = pokemonList.getPokedexEntriesById(userChoice);
         Pokemon playerPoke = new Pokemon(selecetedPokedexEntry);
         System.out.println("Your Pokemon is = " + playerPoke.getPokemonName() + playerPoke.getPokemonAttacks());
+        //NPC Pokemon
         PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(selecetedPokedexEntry.getPokemonIndex()));
         Pokemon opponentPokemon = new Pokemon(randomPokedexEntry);
         System.out.print("Opponents Pokemon = " + opponentPokemon.getPokemonName() + opponentPokemon.getPokemonAttacks());
+
+        // Fight loop
+        while (playerPoke.getHealthPoints() > 0 && opponentPokemon.getHealthPoints() > 0) {
+            System.out.println("Select an attack: ");
 
 
 
