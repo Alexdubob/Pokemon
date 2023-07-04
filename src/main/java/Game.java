@@ -1,53 +1,64 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
     private static final String pokemonFile = "src\\2023-03-13-Pokemon.csv";
     private static final String attackFile = "src\\2023-04-03-Attacks.csv";
-
     BufferedReader reader = null;
     String line = "";
     String splitBy = ";";
-    ArrayList<Pokemon> pokemonList = new ArrayList<>();
-    ArrayList<Attack> attackList = new ArrayList<>();
-
+    PokemonFileReader pokemonList;
+    AttackFileReader attackList;
     Random random = new Random();
+    Scanner scanner = new Scanner(System.in);
 
-    //Pokemon filereader
-    public void pokemonFileReader{
-        try {
-            reader = new BufferedReader(new FileReader(pokemonFile));
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                String[] pokemonReader = line.split(splitBy);
-                Pokemon pokemon = new Pokemon(Integer.parseInt(pokemonReader[0]), pokemonReader[1], pokemonReader[2], Integer.parseInt(pokemonReader[5]), Integer.parseInt(pokemonReader[6]), Integer.parseInt(pokemonReader[7]), Integer.parseInt(pokemonReader[9]));
-                pokemonList.add(pokemon);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Game() {
+        pokemonList = new PokemonFileReader();
+        new Pokemon(pokemonList.getPokedexEntriesById(3));
+        new Pokemon(pokemonList.getPokedexEntriesByName("Pikachu"));
+        attackList = new AttackFileReader();
+        attackList.getAttackEntriesById(4);
+
+
+        System.out.println("Choose a Pokemon From the Pokedex");
+
+
+        int userChoice = scanner.nextInt();
+        PokedexEntry selecetedPokedexEntry = pokemonList.getPokedexEntriesById(userChoice);
+        Pokemon playerPoke = new Pokemon(selecetedPokedexEntry);
+        System.out.println("Your Pokemon is = " + playerPoke.getPokemonName() + playerPoke.getPokemonAttacks());
+        PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(selecetedPokedexEntry.getPokemonIndex()));
+        Pokemon opponentPokemon = new Pokemon(randomPokedexEntry);
+        System.out.print("Opponents Pokemon = " + opponentPokemon.getPokemonName() + opponentPokemon.getPokemonAttacks());
+
+
+
     }
 
-    //Attack filereader
-    public void attackFileReader{
-        try {
-            reader = new BufferedReader(new FileReader(attackFile));
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                String[] attackReader = line.split(splitBy);
-                Attack attack = new Attack(attackReader[1], attackReader[3], Integer.parseInt(attackReader[5]));
-                attackList.add(attack);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private  Pokemon NPC() {
+
+   /* private Pokemon Player() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose a Pokemon.");
+        String playerChoice = scanner.nextLine();
+        Pokemon playerPokemon = null;
+
+        try {
+            // ToDo: Check User Input
+            int index = Integer.parseInt(playerChoice);
+            playerPokemon = new Pokemon(pokemonList.getPokedexEntriesById(index));
+        } catch (NumberFormatException e) {
+        }
+
+
+        return Player();
+    }*/
+}
+
+   /* private Pokemon NPC() {
         int opponentChoice = random.nextInt(pokemonList.size());
-        Pokemon npcPokemon = pokemonList.get(Integer.parseInt(String.valueOf(opponentChoice)));
+        Pokemon npcPokemon = pokemonList.getPokedexEntriesById(Integer.parseInt(String.valueOf(opponentChoice)));
 
         int opponentAttackChoice = random.nextInt(attackList.size());
         Attack opponentAttack1 = attackList.get(opponentAttackChoice);
@@ -59,23 +70,25 @@ public class Game {
         attackList.add(opponentAttack1);
 
         return pokemonList.get(opponentChoice);
+    }
 
-
-
-    public void Fight{
-        while (playerPokemon.getHP() > 0 && opponentPokemon.getHP() > 0) {
-            Pokemon attacker, defender;
-            if (playerPokemon.getSpeed() > opponentPokemon.getSpeed()) {
-                attacker = playerPokemon;
-                defender = opponentPokemon;
+    public Pokemon Fight() {
+        Pokemon attacker = null;
+        Pokemon defender = null;
+        while (NPC().getHealthPoints() > 0 && Player().getHealthPoints() > 0) {
+            if (Player().getSpeed() > NPC().getSpeed()) {
+                attacker = Player();
+                defender = NPC();
+                System.out.println("which attack do you want to use? ");
+                int
             } else {
-                attacker = opponentPokemon;
-                defender = playerPokemon;
+                attacker = NPC();
+                defender = Player();
             }
         }
 
         //damage calculation
-        double damage = (getAttackPower) * attacker.getAttack() / defender.getDefense;
+        double damage = (attacker) * attacker.getAttack() / defender.getDefense();
         defender.takeDamage((int) damage);
     }
 
@@ -86,7 +99,7 @@ public class Game {
             hp = 0;
         }
     }
-}
+}*/
 
 
 

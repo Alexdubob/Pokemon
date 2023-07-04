@@ -1,18 +1,22 @@
 public class Attack {
+    private Integer attackId;
 
-   private String attackName;
+    private String attackName;
 
-   private String attackType;
+    private String attackType;
 
-   private Integer attackPower;
+    private Integer attackPower;
 
+    public Attack(Integer attackId, String attackName, String attackType, Integer attackPower) {
+        this.attackId = attackId;
+        this.attackName = attackName;
+        this.attackType = attackType;
+        this.attackPower = attackPower;
+    }
 
-    public Attack(String attackName, String attackType, Integer attackPower){
-       this.attackName = attackName;
-       this.attackType = attackType;
-       this.attackPower = attackPower;
-
-   }
+    public Integer getAttackId() {
+        return attackId;
+    }
 
     public String getAttackName() {
         return attackName;
@@ -29,6 +33,7 @@ public class Attack {
     @Override
     public String toString() {
         return "Attack{" +
+                "AttackID='" + attackId + '\'' +
                 "Name='" + attackName + '\'' +
                 ", Type='" + attackType + '\'' +
                 ", Power=" + attackPower +

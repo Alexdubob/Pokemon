@@ -1,15 +1,21 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Pokemon {
 
     private Integer pokemonIndex;
     private String pokemonName;
     private String pokemonType;
     private Integer healthPoints;
+    private Integer maxHealth;
     private Integer attack;
     private Integer defense;
     private Integer speed;
+    private ArrayList<Attack> pokemonAttacks;
 
-    public Integer getPokemonIndex(){
-        return  pokemonIndex;
+
+    public Integer getPokemonIndex() {
+        return pokemonIndex;
     }
 
     public String getPokemonName() {
@@ -36,14 +42,33 @@ public class Pokemon {
         return speed;
     }
 
-    public Pokemon(Integer pokemonIndex,String pokemonName, String pokemonType, Integer healthPoints, Integer attack, Integer defense, Integer speed) {
-        this.pokemonIndex = pokemonIndex;
-        this.pokemonName = pokemonName;
-        this.pokemonType = pokemonType;
-        this.healthPoints = healthPoints;
-        this.attack = attack;
-        this.defense = defense;
-        this.speed = speed;
+    public Integer getMaxHealth() {
+        return maxHealth;
+    }
+
+    public ArrayList<Attack> getPokemonAttacks() {
+        return pokemonAttacks;
+    }
+
+    public Pokemon(PokedexEntry pokedexEntry) {
+        this.pokemonIndex = pokedexEntry.getPokemonIndex();
+        this.pokemonName = pokedexEntry.getPokemonName();
+        this.pokemonType = pokedexEntry.getPokemonType();
+        this.healthPoints = pokedexEntry.getHealthPoints();
+        this.maxHealth = this.healthPoints;
+        this.attack = pokedexEntry.getAttack();
+        this.defense = pokedexEntry.getDefense();
+        this.speed = pokedexEntry.getSpeed();
+
+        Random random = new Random();
+        AttackFileReader attackList;
+        attackList = new AttackFileReader();
+
+        this.pokemonAttacks = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+            this.pokemonAttacks.add(attackList.getRandomAttack());
+        }
     }
 
     @Override
@@ -53,9 +78,10 @@ public class Pokemon {
                 ", Name='" + pokemonName + '\'' +
                 ", Type='" + pokemonType + '\'' +
                 ", HP=" + healthPoints +
-                ", Attack=" + attack +
+                ", Attackpower=" + attack +
                 ", Defense=" + defense +
                 ", Speed=" + speed +
+                ", Attacks= " + pokemonAttacks +
                 '}';
     }
 }
