@@ -21,7 +21,7 @@ public class AttackFileReader {
         }
     }
 
-    public int size() {
+    public int attacklistSize() {
         return attackEntriesById.size();
     }
 

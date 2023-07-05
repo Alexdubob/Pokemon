@@ -7,6 +7,9 @@ public class Pokemon {
     private String pokemonName;
     private String pokemonType;
     private Integer healthPoints;
+
+
+
     private Integer maxHealth;
     private Integer attack;
     private Integer defense;
@@ -28,6 +31,10 @@ public class Pokemon {
 
     public Integer getHealthPoints() {
         return healthPoints;
+    }
+
+    public void setHealthPoints(Integer healthPoints) {
+        this.healthPoints = healthPoints;
     }
 
     public Integer getAttack() {
@@ -70,6 +77,16 @@ public class Pokemon {
             this.pokemonAttacks.add(attackList.getRandomAttack());
         }
     }
+
+    public Attack getPokeAttack(int index) {
+        if (index > pokemonAttacks.size() && index < pokemonAttacks.size()) {
+            throw new IllegalArgumentException ("invalid index");
+        } else {
+            return pokemonAttacks.get(index - 1);
+        }
+    }
+    //ToDo: falsche abfrage beheben
+
 
     @Override
     public String toString() {

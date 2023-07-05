@@ -19,6 +19,9 @@ public class PokemonFileReader {
             pokedexEntriesById.put(element.getPokemonIndex(), element);
         }
     }
+    public int pokeDexSize() {
+        return pokedexEntriesById.size();
+    }
 
     public ArrayList<PokedexEntry> readPokemonFile(String filename) {
         ArrayList<PokedexEntry> pokemonList = new ArrayList<>();

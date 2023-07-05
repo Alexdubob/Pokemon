@@ -15,96 +15,63 @@ public class Game {
 
     public Game() {
         pokemonList = new PokemonFileReader();
-        new Pokemon(pokemonList.getPokedexEntriesById(3));
-        new Pokemon(pokemonList.getPokedexEntriesByName("Pikachu"));
         attackList = new AttackFileReader();
-        attackList.getAttackEntriesById(4);
-
 
         System.out.println("Choose a Pokemon From the Pokedex");
 
         //Playerpokemon
         int userChoice = scanner.nextInt();
-        PokedexEntry selecetedPokedexEntry = pokemonList.getPokedexEntriesById(userChoice);
-        Pokemon playerPoke = new Pokemon(selecetedPokedexEntry);
-        System.out.println("Your Pokemon is = " + playerPoke.getPokemonName() + playerPoke.getPokemonAttacks());
-        //NPC Pokemon
-        PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(selecetedPokedexEntry.getPokemonIndex()));
-        Pokemon opponentPokemon = new Pokemon(randomPokedexEntry);
-        System.out.print("Opponents Pokemon = " + opponentPokemon.getPokemonName() + opponentPokemon.getPokemonAttacks());
-
-        // Fight loop
-        while (playerPoke.getHealthPoints() > 0 && opponentPokemon.getHealthPoints() > 0) {
-            System.out.println("Select an attack: ");
+        if (userChoice > pokemonList.pokeDexSize() || userChoice < 0) {
+            throw new IllegalArgumentException("Invalid Pokemon input");
+        } else {
+            PokedexEntry selecetedPokedexEntry = pokemonList.getPokedexEntriesById(userChoice);
+            Pokemon playerPoke = new Pokemon(selecetedPokedexEntry);
+            System.out.println("Your Pokemon is = " + playerPoke.getPokemonName() + playerPoke.getPokemonAttacks());
 
 
+            //NPC Pokemon
+            PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(selecetedPokedexEntry.getPokemonIndex()));
+            Pokemon opponentPoke = new Pokemon(randomPokedexEntry);
+            System.out.println("Opponents Pokemon = " + opponentPoke.getPokemonName() + opponentPoke.getPokemonAttacks());
 
-    }
+            // Fight loop
+            boolean playerTurn = true;
+            while (playerPoke.getHealthPoints() > 0 && opponentPoke.getHealthPoints() > 0) {
+                if (playerPoke.getSpeed() < opponentPoke.getSpeed() || !playerTurn) {
+                    System.out.println("It is the opponent's turn");
+                    attackPokemon(opponentPoke, playerPoke, opponentPoke.getPokeAttack(random.nextInt(1, 2)));
+                    playerTurn = true;
+                } else {
+                    System.out.println("Select an attack: ");
+                    System.out.println(playerPoke.getPokemonAttacks());
+                    int playerAttackChoice = scanner.nextInt();
+                    System.out.println("You chose " + playerPoke.getPokeAttack(playerAttackChoice));
+                    attackPokemon(playerPoke, opponentPoke, playerPoke.getPokeAttack(playerAttackChoice));
+                    playerTurn = false;
 
-
-
-   /* private Pokemon Player() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose a Pokemon.");
-        String playerChoice = scanner.nextLine();
-        Pokemon playerPokemon = null;
-
-        try {
-            // ToDo: Check User Input
-            int index = Integer.parseInt(playerChoice);
-            playerPokemon = new Pokemon(pokemonList.getPokedexEntriesById(index));
-        } catch (NumberFormatException e) {
-        }
-
-
-        return Player();
-    }*/
-}
-
-   /* private Pokemon NPC() {
-        int opponentChoice = random.nextInt(pokemonList.size());
-        Pokemon npcPokemon = pokemonList.getPokedexEntriesById(Integer.parseInt(String.valueOf(opponentChoice)));
-
-        int opponentAttackChoice = random.nextInt(attackList.size());
-        Attack opponentAttack1 = attackList.get(opponentAttackChoice);
-        attackList.remove(opponentAttack1);
-        Attack opponentAttack2 = attackList.get(opponentAttackChoice);
-        System.out.println("Opponents attacks are : ");
-        System.out.println(opponentAttack1);
-        System.out.println(opponentAttack2);
-        attackList.add(opponentAttack1);
-
-        return pokemonList.get(opponentChoice);
-    }
-
-    public Pokemon Fight() {
-        Pokemon attacker = null;
-        Pokemon defender = null;
-        while (NPC().getHealthPoints() > 0 && Player().getHealthPoints() > 0) {
-            if (Player().getSpeed() > NPC().getSpeed()) {
-                attacker = Player();
-                defender = NPC();
-                System.out.println("which attack do you want to use? ");
-                int
-            } else {
-                attacker = NPC();
-                defender = Player();
+                }
+                if (playerPoke.getHealthPoints() < 0) {
+                    System.out.println("You lost the battle!");
+                } else if (opponentPoke.getHealthPoints() < 0) {
+                    System.out.println("You won the battle!");
+                }
             }
         }
-
-        //damage calculation
-        double damage = (attacker) * attacker.getAttack() / defender.getDefense();
-        defender.takeDamage((int) damage);
     }
 
+    public static void attackPokemon(Pokemon attacker, Pokemon defender, Attack attack) {
+        double damage = 1.0/25.0 * ((double) attack.getAttackPower() * ((double) attacker.getAttack() / (double) defender.getDefense()));
+        double newHealthPoints = defender.getHealthPoints() - damage;
+        defender.setHealthPoints((int) newHealthPoints);
+        System.out.println(attacker.getPokemonName() + " attacks with " + attack.getAttackName() + "!");
+        System.out.println(defender.getPokemonName() + " loses " + Math.round(damage) + " HP.");
+        System.out.println(defender.getPokemonName() + " left with " + Math.round(newHealthPoints)  + "HP");
 
-    public void takeDamage(int damage) {
-        hp -= damage;
-        if (hp < 0) {
-            hp = 0;
-        }
     }
-}*/
+}
+
+
+
 
 
 
