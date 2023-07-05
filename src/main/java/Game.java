@@ -3,11 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    private static final String pokemonFile = "src\\2023-03-13-Pokemon.csv";
-    private static final String attackFile = "src\\2023-04-03-Attacks.csv";
-    BufferedReader reader = null;
-    String line = "";
-    String splitBy = ";";
+
     PokemonFileReader pokemonList;
     AttackFileReader attackList;
     Random random = new Random();
@@ -37,35 +33,36 @@ public class Game {
             // Fight loop
             boolean playerTurn = true;
             while (playerPoke.getHealthPoints() > 0 && opponentPoke.getHealthPoints() > 0) {
-                if (playerPoke.getSpeed() < opponentPoke.getSpeed() || !playerTurn) {
-                    System.out.println("It is the opponent's turn");
+                if ((playerPoke.getSpeed() >= opponentPoke.getSpeed() && playerTurn) || (playerPoke.getSpeed() < opponentPoke.getSpeed() && !playerTurn)) {                    System.out.println("It is the opponent's turn");
                     attackPokemon(opponentPoke, playerPoke, opponentPoke.getPokeAttack(random.nextInt(1, 2)));
-                    playerTurn = true;
-                } else {
+                }
+                else {
                     System.out.println("Select an attack: ");
                     System.out.println(playerPoke.getPokemonAttacks());
                     int playerAttackChoice = scanner.nextInt();
                     System.out.println("You chose " + playerPoke.getPokeAttack(playerAttackChoice));
                     attackPokemon(playerPoke, opponentPoke, playerPoke.getPokeAttack(playerAttackChoice));
-                    playerTurn = false;
 
                 }
-                if (playerPoke.getHealthPoints() < 0) {
-                    System.out.println("You lost the battle!");
-                } else if (opponentPoke.getHealthPoints() < 0) {
-                    System.out.println("You won the battle!");
-                }
+                playerTurn = !playerTurn;
             }
+            if (playerPoke.getHealthPoints() < 0) {
+                System.out.println("You lost the battle!");
+            } else if (opponentPoke.getHealthPoints() < 0) {
+                System.out.println("You won the battle!");
+        }
+
+
         }
     }
 
     public static void attackPokemon(Pokemon attacker, Pokemon defender, Attack attack) {
-        double damage = 1.0/25.0 * ((double) attack.getAttackPower() * ((double) attacker.getAttack() / (double) defender.getDefense()));
+        double damage = 1.0 / 25.0 * ((double) attack.getAttackPower() * ((double) attacker.getAttack() / (double) defender.getDefense()));
         double newHealthPoints = defender.getHealthPoints() - damage;
         defender.setHealthPoints((int) newHealthPoints);
         System.out.println(attacker.getPokemonName() + " attacks with " + attack.getAttackName() + "!");
         System.out.println(defender.getPokemonName() + " loses " + Math.round(damage) + " HP.");
-        System.out.println(defender.getPokemonName() + " left with " + Math.round(newHealthPoints)  + "HP");
+        System.out.println(defender.getPokemonName() + " left with " + Math.round(newHealthPoints) + "HP");
 
     }
 }

@@ -79,13 +79,13 @@ public class Pokemon {
     }
 
     public Attack getPokeAttack(int index) {
-        if (index > pokemonAttacks.size() && index < pokemonAttacks.size()) {
+        if (index > pokemonAttacks.size() && index < 0) {
             throw new IllegalArgumentException ("invalid index");
         } else {
             return pokemonAttacks.get(index - 1);
         }
     }
-    //ToDo: falsche abfrage beheben
+
 
 
     @Override
