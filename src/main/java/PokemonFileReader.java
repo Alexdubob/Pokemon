@@ -45,9 +45,6 @@ public class PokemonFileReader {
         return pokedexEntriesById.get(id);
     }
 
-    public PokedexEntry getPokedexEntriesByName(String name) {
-        return pokedexEntriesByName.get(name);
-    }
 
 
 }

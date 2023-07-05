@@ -26,14 +26,15 @@ public class Game {
 
 
             //NPC Pokemon
-            PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(selecetedPokedexEntry.getPokemonIndex()));
+            PokedexEntry randomPokedexEntry = pokemonList.getPokedexEntriesById(random.nextInt(1, pokemonList.pokeDexSize()));
             Pokemon opponentPoke = new Pokemon(randomPokedexEntry);
             System.out.println("Opponents Pokemon = " + opponentPoke.getPokemonName() + opponentPoke.getPokemonAttacks());
 
             // Fight loop
             boolean playerTurn = true;
             while (playerPoke.getHealthPoints() > 0 && opponentPoke.getHealthPoints() > 0) {
-                if ((playerPoke.getSpeed() >= opponentPoke.getSpeed() && playerTurn) || (playerPoke.getSpeed() < opponentPoke.getSpeed() && !playerTurn)) {                    System.out.println("It is the opponent's turn");
+                if ((playerPoke.getSpeed() >= opponentPoke.getSpeed() && playerTurn) || (playerPoke.getSpeed() < opponentPoke.getSpeed() && !playerTurn)) {
+                    System.out.println("It is the opponent's turn");
                     attackPokemon(opponentPoke, playerPoke, opponentPoke.getPokeAttack(random.nextInt(1, 2)));
                 }
                 else {

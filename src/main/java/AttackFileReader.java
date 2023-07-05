@@ -40,15 +40,7 @@ public class AttackFileReader {
         }
         return attackList;
     }
-    public Attack getAttackEntriesById(Integer id){
-        return attackEntriesById.get(id);
-    }
-    public Attack getAttackEntriesByname(String name){
-        return attackEntriesByName.get(name);
-    }
-    public Map<Integer, Attack> getAttackMap() {
-        return attackEntriesById;
-    }
+
     public Attack getRandomAttack() {
         ArrayList<Attack> tmpAttack = new ArrayList<>();
         for(Map.Entry<Integer, Attack> entry : attackEntriesById.entrySet()) {

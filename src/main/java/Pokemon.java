@@ -17,17 +17,11 @@ public class Pokemon {
     private ArrayList<Attack> pokemonAttacks;
 
 
-    public Integer getPokemonIndex() {
-        return pokemonIndex;
-    }
 
     public String getPokemonName() {
         return pokemonName;
     }
 
-    public String getPokemonType() {
-        return pokemonType;
-    }
 
     public Integer getHealthPoints() {
         return healthPoints;
@@ -67,7 +61,6 @@ public class Pokemon {
         this.defense = pokedexEntry.getDefense();
         this.speed = pokedexEntry.getSpeed();
 
-        Random random = new Random();
         AttackFileReader attackList;
         attackList = new AttackFileReader();
 
@@ -79,13 +72,12 @@ public class Pokemon {
     }
 
     public Attack getPokeAttack(int index) {
-        if (index > pokemonAttacks.size() && index < 0) {
+        if (index > pokemonAttacks.size() || index < 0) {
             throw new IllegalArgumentException ("invalid index");
         } else {
             return pokemonAttacks.get(index - 1);
         }
     }
-
 
 
     @Override

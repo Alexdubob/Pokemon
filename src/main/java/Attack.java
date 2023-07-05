@@ -22,9 +22,6 @@ public class Attack {
         return attackName;
     }
 
-    public String getAttackType() {
-        return attackType;
-    }
 
     public Integer getAttackPower() {
         return attackPower;
